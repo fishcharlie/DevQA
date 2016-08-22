@@ -1,1 +1,12 @@
 <h4>{{questions.question}}</h4>
+<div ng-repeat="answer in questions.answers">
+	<h5>{{answer}}</h5>
+</div>
+
+<form ng-submit="postAnswer(questions._id)">
+  <div>
+	<label for="newAnswer-answer">Answer:</label>
+	<input type="text" id="newAnswer-answer" ng-model="newAnswer.answer">
+	<input type="submit" value="Add Answer">
+  </div>
+</form>
