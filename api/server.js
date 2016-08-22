@@ -77,6 +77,17 @@ app.delete("/questions/:id", function(req, res) {
 
 
 
+app.post("/answers", function(req, res) {
+    Question.findById(req.body.questionid, function(err, question) {
+        question.answers.push(req.body.answer);
+        question.save();
+        res.send('OK');
+    });
+});
+
+
+
+
 
 
 var port = process.env.PORT || 3000;
