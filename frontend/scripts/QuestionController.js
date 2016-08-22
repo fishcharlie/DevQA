@@ -54,7 +54,34 @@ function QuestionController($http, $scope, Question){
 }
 
 
+app.controller('QuestionShowController', function ($scope, Question, $routeParams, $http) {
+  var self = this;
+    console.log($routeParams.id);
+    function getQuestion() {
+      $http
+        .get('http://localhost:3000/questions/'+$routeParams.id)
+        .then(function(response){
+          $scope.questions = response.data[0];
+          console.log(response.data[0]);
+      });
+    }
+    getQuestion();
+
+    $scope.postAnswer = function (id) {
+      console.log(id);
+      var data = $scope.newAnswer;
+      data.questionid = id;
+      $http
+        .post('http://localhost:3000/answers/', data)
+        .then(function(response){
+          $scope.newAnswer = {};
+          getQuestion();
+      });
+
+    };
+
+});
+
 app.factory("Question", function($resource) {
   return $resource("http://localhost:3000/questions/:id");
-  // return $resource("https://shielded-forest-41789.herokuapp.com/api/flashcards/:id");
 });

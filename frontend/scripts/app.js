@@ -18,23 +18,3 @@ app.config(function($routeProvider){
     });
 
 });
-
-app.controller('QuestionShowController', function ($scope, Question, $routeParams, $http) {
-    console.log($routeParams.id);
-    // var question = Question.get({_id:$routeParams.id}, function() {
-    //   self.question = question;
-    // });
-    $http
-      .get('http://localhost:3000/questions/'+$routeParams.id)
-      .then(function(response){
-        $scope.questions = response.data[0];
-        console.log(response.data[0]);
-    });
-
-
-});
-
-app.factory("Question", function($resource) {
-  return $resource("http://localhost:3000/questions/:id");
-  // return $resource("https://shielded-forest-41789.herokuapp.com/api/flashcards/:id");
-});
