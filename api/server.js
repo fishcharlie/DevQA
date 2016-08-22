@@ -44,7 +44,6 @@ app.get("/questions/:id", function(req, res) {
 app.post("/questions", function(req, res) {
     var question = new Question({
       question: req.body.question,
-      tags: req.body.tags,
     });
 
     question.save(function (err) {
@@ -55,24 +54,19 @@ app.post("/questions", function(req, res) {
             res.status(200).send(question);
         }
     });
-
-
 });
 
-// // Put
-// app.put("/flashcards/:id", function(req, res) {
-//     Card.findById(req.param('id'), function(err, card) {
-//         if (req.body.question) {
-//             card.question = req.body.question;
-//         }
-//         if (req.body.answer) {
-//             card.answer = req.body.answer;
-//         }
-//         card.save();
-//         res.send('OK');
-//     });
-// });
-//
+// Put
+app.put("/questions/:id", function(req, res) {
+    Question.findById(req.param('id'), function(err, question) {
+        if (req.body.question) {
+            question.question = req.body.question;
+        }
+        card.save();
+        res.send('OK');
+    });
+});
+
 // Delete
 app.delete("/questions/:id", function(req, res) {
     Question.findById(req.param('id'), function(err, question) {
