@@ -62,7 +62,7 @@ app.put("/questions/:id", function(req, res) {
         if (req.body.question) {
             question.question = req.body.question;
         }
-        card.save();
+        question.save();
         res.send('OK');
     });
 });
