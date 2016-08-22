@@ -1,0 +1,29 @@
+<div class="container" ng-controller="QuestionController as QuestionController">
+  <header class="navbar">
+	<h1 class="pull-left">Questions</h1>
+
+	<scores></scores>
+  </header>
+
+  <section id="cards" class="container-fluid">
+	<div class="row">
+
+	  <div class="col-sm-6 col-md-6 col-lg-4" ng-repeat="question in QuestionController.questions" >
+		<question></question>
+	  </div>
+
+	</div>
+  </section>
+
+
+
+  <form ng-submit="submit()">
+	<div>
+	  <label for="newQuestion-question">Question:</label>
+	  <input type="text" id="newQuestion-question" ng-model="QuestionController.newQuestion.question">
+	  <input type="submit" value="Add Question">
+	</div>
+  </form>
+
+
+</div>
