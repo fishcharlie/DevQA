@@ -1,5 +1,5 @@
 var express = require("express");
-var dynamoose = require('dynamoose');
+var mongoose = require('mongoose');
 var app = express();
 var bodyParser = require('body-parser');
 var https = require('https');
@@ -8,47 +8,37 @@ var Question = require('./question_model.js');
 
 app.use(bodyParser.json());
 
-// Setup Dynamoose
-dynamoose.AWS.config.update({
-  accessKeyId: process.env.ACCESSKEYID,
-  secretAccessKey: process.env.SECRETACCESSKEY,
-  region: 'us-west-2',
-  httpOptions: {
-    agent: new https.Agent({
-      rejectUnauthorized: true,
-      keepAlive: true
-    })
-  }
-});
-dynamoose.setDefaults({
-  create: true, // Create table in DB if it does not exist
-  waitForActive: true,
-  throughput: {read: 1, write: 1}
-});
+mongoose.connect('mongodb://localhost/devqaapp');
 
+app.use(function (req, res, next) {
+    console.log(req.url);
+    next();
+});
 
 // Get
 app.get("/questions", function(req, res) {
-  var questionsArray = [];
-    Question.scan({}, function(err, questions) {
+    Question.find({}, function(err, questions) {
       if (err) {
         res.status(500).send('Error');
       }
       else {
-        questionsArray = questions;
-        var lastKey = questions.lastKey;
-        while (lastKey) {
-          Question.scan().startAt(questions.lastKey).exec(function (err, questions) {
-            lastKey = questions.lastKey;
-            questions.forEach(function (item) {
-              questionsArray.push(item);
-            });
-          });
-        }
-        res.status(200).send(questionsArray);
+        res.status(200).send(questions);
       }
     });
 });
+
+app.get("/questions/:id", function(req, res) {
+    console.log("test");
+    Question.find({_id: req.params.id}, function(err, question) {
+      if (err) {
+        res.status(500).send('Error');
+      }
+      else {
+        res.status(200).send(question);
+      }
+    });
+});
+
 
 // Post
 app.post("/questions", function(req, res) {
@@ -83,13 +73,13 @@ app.post("/questions", function(req, res) {
 //     });
 // });
 //
-// // Delete
-// app.delete("/flashcards/:id", function(req, res) {
-//     Card.findById(req.param('id'), function(err, card) {
-//       card.remove();
-//       res.send('OK');
-//     });
-// });
+// Delete
+app.delete("/questions/:id", function(req, res) {
+    Question.findById(req.param('id'), function(err, question) {
+      question.remove();
+      res.send('OK');
+    });
+});
 
 
 
