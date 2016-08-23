@@ -9,12 +9,6 @@ function QuestionController($http, $scope, Question){
     var questions = Question.query(function () {
       self.questions = questions;
     });
-
-    // $http
-    //   .get('http://localhost:3000/criminals')
-    //   .then(function(response){
-    //     self.criminals = response.data.criminals;
-    // });
   }
   getQuestions();
 
@@ -25,15 +19,6 @@ function QuestionController($http, $scope, Question){
       self.newQuestion = {};
       getQuestions();
     });
-
-
-    // $http
-    //   .post('http://localhost:3000/criminals', data)
-    //   .then(function(response){
-    //     self.newCriminal = {};
-    //     self.newCriminal.status = "Unknown";
-    //     getCriminals();
-    //   });
   };
 
   $scope.delete = function (id) {
@@ -42,13 +27,6 @@ function QuestionController($http, $scope, Question){
     Question.remove({ id: id }, function() {
       getQuestions();
     });
-
-
-    // $http
-    //   .delete('http://localhost:3000/criminals/'+id)
-    //   .then(function(response){
-    //     getCriminals();
-    //   });
   };
 
 }
