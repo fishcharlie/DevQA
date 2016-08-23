@@ -1,12 +1,16 @@
-<h4>{{questions.question}}</h4>
-<div ng-repeat="answer in questions.answers">
-	<h5>{{answer}}</h5>
-</div>
+<div class="container">
+	<div class="content container-fluid">
+		<h4>{{questions.question}}</h4>
+		<div ng-repeat="answer in questions.answers" class="answers">
+			<h5>{{answer}}</h5>
+		</div>
+	</div>
 
-<form ng-submit="postAnswer(questions._id)">
-  <div>
-	<label for="newAnswer-answer">Answer:</label>
-	<input type="text" id="newAnswer-answer" ng-model="newAnswer.answer">
-	<input type="submit" value="Add Answer">
-  </div>
-</form>
+	<form ng-submit="postAnswer(questions._id)" class="container-fluid">
+	  <div>
+		<label for="newAnswer-answer">Answer:</label>
+		<input type="text" id="newAnswer-answer" ng-model="newAnswer.answer" class="form-control">
+		<input type="submit" value="Add Answer" class="btn btn-primary">
+	  </div>
+	</form>
+</div>

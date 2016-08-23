@@ -1,14 +1,18 @@
 <div class="container" ng-controller="QuestionController as QuestionController">
-  <header class="navbar">
-	<h1 class="pull-left">Questions</h1>
 
-	<scores></scores>
-  </header>
+	<form ng-submit="submit()" class="newquestionform">
+  	<div class="container-fluid">
+  	  <label for="newQuestion-question">Question:</label>
+  	  <input type="text" id="newQuestion-question" ng-model="QuestionController.newQuestion.question" class="form-control">
+  	  <input type="submit" value="Add Question" class="btn btn-primary addquestion">
+  	</div>
+    </form>
 
-  <section id="cards" class="container-fluid">
+
+  <section class="container-fluid">
 	<div class="row">
 
-	  <div class="col-sm-6 col-md-6 col-lg-4" ng-repeat="question in QuestionController.questions" >
+	  <div class="col-xs-12" ng-repeat="question in QuestionController.questions" >
 		<question></question>
 	  </div>
 
@@ -16,14 +20,6 @@
   </section>
 
 
-
-  <form ng-submit="submit()">
-	<div>
-	  <label for="newQuestion-question">Question:</label>
-	  <input type="text" id="newQuestion-question" ng-model="QuestionController.newQuestion.question">
-	  <input type="submit" value="Add Question">
-	</div>
-  </form>
 
 
 </div>
